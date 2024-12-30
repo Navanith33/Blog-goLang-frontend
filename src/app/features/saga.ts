@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import { enableaddBlog, enableblog, enablelogin, enableSignup, enableuserblog, setBlog, setContent, setEmail, setloginSuccess, setPassword,setrole,setsignupEmail,setsignupPassword, setSuccess, setTitle, setuserblog} from './slice';
+import { enableaddBlog, enableblog, enablelogin, enableSignup, enableuserblog, setBlog, setContent, setEmail, setisLoading, setLoading, setloginSuccess, setPassword,setrole,setsignupEmail,setsignupPassword, setSuccess, setTitle, setuserblog} from './slice';
 function* loginCheck() {
   const email = yield select((state) => state.login.email);
   const password = yield select((state) => state.login.password);
@@ -18,6 +18,7 @@ function* loginCheck() {
     yield put(setEmail(''));
     yield put(setPassword(''));
     yield put(setloginSuccess(true));
+
   } catch (error) {
     alert("invalid credentials");
   }
@@ -67,6 +68,7 @@ function* blogRequest(){
       }
     });
     yield put(setBlog(response.data.blogs));
+    yield put(setLoading(false));
   }
   catch(e){
      alert("no blogs to display");
@@ -117,6 +119,7 @@ export function* fetchuserblog(){
       }
     });
     yield put(setuserblog(response.data.blogs));
+    yield put(setisLoading(false));
 
   }catch(e){
       console.log(e);

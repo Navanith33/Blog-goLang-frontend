@@ -6,14 +6,13 @@ function UserProfile(){
      const trigger = useUserblog();
      const blogs = useAppSelector((state)=>state.userBlog.blog);
      const dispatch = useAppDispatch();
-     const [isLoading,setloading]=useState(true);
      const navigate = useNavigate();
+     const isLoading= useAppSelector((state)=>state.userBlog.isLoading);
      const handleclick = () =>{
          navigate('/addBlog');
      }
      useEffect(()=>{
         dispatch(enableuserblog());
-        setloading(false);
      },[]);
      if(isLoading){
         return(<>

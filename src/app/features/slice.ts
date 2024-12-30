@@ -89,9 +89,11 @@ export interface BlogType{
   Content:string;
 }
 export interface Blogarray{
+  isLoading:boolean
   blog: BlogType[]
 }
 const blogInitail:Blogarray={
+  isLoading:true,
   blog :[]
 }
 
@@ -102,7 +104,11 @@ const blogSlice = createSlice({
     setBlog(state,actions){
       state.blog=actions.payload;
     },
+    setLoading(state,actions){
+      state.isLoading=actions.payload;
+    },
     enableblog(state){
+      state.isLoading=true;
     }
   }
 })
@@ -110,7 +116,7 @@ export const useBlogSLice = () =>{
   useInjectReducer({key:blogSlice.name,reducer:blogSlice.reducer});
   useInjectSaga({key:blogSlice.name,saga:blogsaga})
 }
-export const {setBlog,enableblog}=blogSlice.actions;
+export const {setBlog,setLoading,enableblog}=blogSlice.actions;
 ///////
 export interface AddBlog{
   Title:string,
@@ -148,9 +154,11 @@ export interface userblog{
   Content:string;
 }
 export interface userblogarray{
+  isLoading:boolean
   blog:userblog[];
 }
 const initialuserblogarray:userblogarray={
+  isLoading:true,
   blog:[]
 }
 export const userblog = createSlice({
@@ -160,8 +168,11 @@ export const userblog = createSlice({
      setuserblog(state,actions){
       state.blog=actions.payload;
      },
-     enableuserblog(){
-
+     setisLoading(state,actions){
+      state.isLoading=actions.payload;
+     },
+     enableuserblog(state){
+      state.isLoading=true;
      }
   }
 })
@@ -169,7 +180,7 @@ export const useUserblog = ()=>{
   useInjectReducer({key:userblog.name,reducer:userblog.reducer});
   useInjectSaga({key:userblog.name,saga:userblogsaga});
 }
-export const{setuserblog,enableuserblog}=userblog.actions
+export const{setuserblog,setisLoading,enableuserblog}=userblog.actions
 export default{
   loginReducer:loginSlice.reducer,
   signupReducer:signupSlice.reducer,

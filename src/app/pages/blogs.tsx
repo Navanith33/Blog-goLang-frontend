@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import LandingBar from "./landingbar";
 function Blog(){
     const blogSlice  = useBlogSLice();
-    const blogs = useAppSelector((state)=>state.Blog);
+    const blogs = useAppSelector((state)=>state.Blog.blog);
     const dispatch = useAppDispatch();
-    const [isLoading,setloading]= useState(true);
+    const isLoading= useAppSelector((state)=>state.Blog.isLoading);
     useEffect(()=>{
       dispatch(enableblog());
-      setloading(false);
     },[])
     if(isLoading){
         return(
@@ -23,7 +22,7 @@ function Blog(){
             <>
                <LandingBar/>
                
-                {blogs.blog.map((blog, index) => (
+                {blogs.map((blog, index) => (
                     <div>
                         {blog.Title}
                         <br>
