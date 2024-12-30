@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AddSaga, blogSaga, LoginSaga,SignupSaga, userblogsaga} from './saga';
+import {Addblogsaga, blogsaga, Loginsaga, Signupsaga, userblogsaga} from './saga';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { act } from 'react';
 
 export interface Email {
   email: string;
@@ -36,7 +35,7 @@ const loginSlice = createSlice({
 });
 export const useLoginSlice = () => {
   useInjectReducer({ key: loginSlice.name, reducer: loginSlice.reducer });
-  useInjectSaga({ key: loginSlice.name, saga: LoginSaga });
+  useInjectSaga({ key: loginSlice.name, saga: Loginsaga });
   return { actions: loginSlice.actions };
 };
 
@@ -79,11 +78,12 @@ const signupSlice = createSlice({
 });
 export const useSignupSlice = () => {
   useInjectReducer({ key: signupSlice.name, reducer: signupSlice.reducer });
-  useInjectSaga({ key: signupSlice.name, saga: SignupSaga });
+  useInjectSaga({ key: signupSlice.name, saga: Signupsaga });
   return { actions: signupSlice.actions };
 };
 
 export const { setsignupEmail, setsignupPassword,enableSignup,setrole,setSuccess} = signupSlice.actions;
+////
 export interface BlogType{
   Title:string;
   Content:string;
@@ -108,10 +108,10 @@ const blogSlice = createSlice({
 })
 export const useBlogSLice = () =>{
   useInjectReducer({key:blogSlice.name,reducer:blogSlice.reducer});
-  useInjectSaga({key:blogSlice.name,saga:blogSaga})
+  useInjectSaga({key:blogSlice.name,saga:blogsaga})
 }
 export const {setBlog,enableblog}=blogSlice.actions;
-
+///////
 export interface AddBlog{
   Title:string,
   Content:string
@@ -138,11 +138,11 @@ export const AddSlice = createSlice({
 
 export const useAddSlice = ()=>{
   useInjectReducer({key:AddSlice.name,reducer:AddSlice.reducer});
-  useInjectSaga({key:AddSlice.name,saga:AddSaga});
+  useInjectSaga({key:AddSlice.name,saga:Addblogsaga});
 }
 
 export const { enableaddBlog,setTitle,setContent}=AddSlice.actions;
-
+/////
 export interface userblog{
   Title:string;
   Content:string;

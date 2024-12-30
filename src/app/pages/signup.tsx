@@ -16,7 +16,7 @@ function Signup(){
       }
     },[signupSuccess])
     const handleClick= ()=>{
-        alert("signup click")
+        
         Dispatch(enableSignup());
     }
 

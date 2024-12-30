@@ -8,7 +8,6 @@ function CreateBlog(){
     const dispatch = useAppDispatch();
 
    const handleClick = ()=>{
-    alert("add blog");
     dispatch(enableaddBlog());
    }
 

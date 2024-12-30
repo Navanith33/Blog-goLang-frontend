@@ -15,7 +15,7 @@ function Login(){
           }
         },[signupSuccess])
     const handleClick= ()=>{
-        alert("login click")
+        
         Dispatch(enablelogin());
     }
     return(<>

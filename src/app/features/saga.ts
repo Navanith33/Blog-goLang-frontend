@@ -1,6 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { enableaddBlog, enableblog, enablelogin, enableSignup, enableuserblog, setBlog, setContent, setEmail, setloginSuccess, setPassword,setrole,setsignupEmail,setsignupPassword, setSuccess, setTitle, setuserblog} from './slice';
 function* loginCheck() {
   const email = yield select((state) => state.login.email);
@@ -27,14 +26,7 @@ function* LogincheckSaga() {
   yield call(loginCheck);
 }
 
-export function* LoginSaga() {
-  yield takeLatest(enablelogin.type, LogincheckSaga);
-}
 //////
-// const navigate =()=>{
-//   const navigate = useNavigate();
-//   navigate('/Blogs');
-// }
 function* signupCheck(){
     const email = yield select((state)=>state.signup.email);
     const password = yield select((state)=>state.signup.password);
@@ -64,9 +56,6 @@ function* signupCheck(){
 export function* Signupchecksaga(){
   yield call(signupCheck);
 }
-export function* SignupSaga(){
-  yield takeLatest(enableSignup.type,Signupchecksaga);
-}
 //////
 function* blogRequest(){
   try{
@@ -87,10 +76,6 @@ function* blogRequest(){
 export function* Blogpage(){
   yield call (blogRequest);
 }
-
-export function* blogSaga(){
-  yield takeLatest(enableblog.type,Blogpage);
-}
 ///
 
 function* Addblog(){
@@ -110,18 +95,15 @@ function* Addblog(){
       });
       yield put(setTitle(''));
       yield put(setContent(''));
+      alert("blog added successfully");
     }
     catch(e){
       alert("un authorized");
     }
 }
 
-
 export function* callAddblog(){
   yield call(Addblog);
-}
-export function* AddSaga(){
-  yield takeLatest(enableaddBlog.type,callAddblog);
 }
 /////
 export function* fetchuserblog(){
@@ -144,6 +126,18 @@ export function* fetchuserblog(){
 
 export function* userblogcheck(){
   yield call(fetchuserblog);
+}
+export function* Loginsaga(){
+  yield takeLatest(enablelogin.type, LogincheckSaga);
+}
+export function* Signupsaga(){
+  yield takeLatest(enableSignup.type,Signupchecksaga);
+}
+export function* blogsaga(){
+  yield takeLatest(enableblog.type,Blogpage);
+}
+export function* Addblogsaga(){
+  yield takeLatest(enableaddBlog.type,callAddblog);
 }
 export function* userblogsaga(){
   yield takeLatest(enableuserblog.type,userblogcheck);
